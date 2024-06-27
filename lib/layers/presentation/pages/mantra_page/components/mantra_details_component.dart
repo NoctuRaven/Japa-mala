@@ -13,7 +13,7 @@ class MantraDetailsComponent extends StatelessWidget {
   final GlobalKey<FormState> form;
   final MantraEntity mantra;
 
-  MantraDetailsComponent({
+  const MantraDetailsComponent({
     Key? key,
     required this.onEditCubit,
     required this.form,
@@ -52,14 +52,7 @@ class MantraDetailsComponent extends StatelessWidget {
                                 backgroundColor: Colors.red),
                             child: const Text("cancel", style: TextStyle(color: Colors.white),),
                           ),
-                          // ElevatedButton(
-                          //   onPressed: () {
-                          //     onEditCubit.onEdit();
-                          //   },
-                          //   style: ElevatedButton.styleFrom(
-                          //       backgroundColor: Colors.blue),
-                          //   child: const Text("Create new mantra"),
-                          // ),
+                
                           ElevatedButton(
                             onPressed: () {
                               if (form.currentState!.validate()) {
@@ -77,7 +70,7 @@ class MantraDetailsComponent extends StatelessWidget {
                 Container(
                   color: Colors.yellow[800],
                   height: MediaQuery.of(context).size.height * 0.65,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Stack(
                     children: [
                       Center(
@@ -128,16 +121,8 @@ class MantraDetailsComponent extends StatelessWidget {
                                           MainAxisAlignment.start,
                                       children: [
                                         Container(
-                                          // height: MediaQuery.of(context)
-                                          //         .size
-                                          //         .height *
-                                          //     0.2,
-                                          // width: MediaQuery.of(context)
-                                          //         .size
-                                          //         .width *
-                                          //     0.4,
-                                          // padding: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
+                                         
+                                          decoration:const BoxDecoration(
                                               // borderRadius:
                                               //     BorderRadius.circular(15.0),
                                               // border: Border.all(width: 2),

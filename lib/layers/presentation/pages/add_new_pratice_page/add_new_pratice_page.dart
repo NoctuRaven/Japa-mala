@@ -42,7 +42,7 @@ class _AddNewPraticePageState extends State<AddNewPraticePage> {
     return Scaffold(
       backgroundColor: Colors.yellow[800],
       appBar: AppBar(
-        leading: Container(),
+       title: const Text("Add new mantra"),
         backgroundColor: Colors.red[900],
         actions: [
           IconButton(
@@ -54,111 +54,119 @@ class _AddNewPraticePageState extends State<AddNewPraticePage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 5,
-              width: double.maxFinite,
-              color: Colors.white,
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                    image: AssetImage("assets/images/background_1.png"),
+                    fit: BoxFit.fill),
+          ),
+          child: Column(
+            children: [
+              Container(
+                height: 5,
+                width: double.maxFinite,
+                color: Colors.white,
+              ),
+              Container(
+                height: 5,
+                width: double.maxFinite,
+                color: Colors.blue,
+              ),
+              Container(
+                height: 5,
+                width: double.maxFinite,
+                color: Colors.green[800],
+              ),
+          
+          Container(
+            margin: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              color: Colors.yellow,
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(20)
             ),
-            Container(
-              height: 5,
-              width: double.maxFinite,
-              color: Colors.blue,
-            ),
-            Container(
-              height: 5,
-              width: double.maxFinite,
-              color: Colors.green[800],
-            ),
-        
-Container(
-  margin: EdgeInsets.all(20.0),
-  padding: EdgeInsets.all(20.0),
-  decoration: BoxDecoration(
-    color: Colors.yellow,
-    border: Border.all(),
-    borderRadius: BorderRadius.circular(20)
-  ),
-  child: Column(
-                          children: [
-                            Form(
-                              key: _formMantra,
-                              child: Column(
-                                children: [
-                                  TextFormField(
-                                    validator: Validators().nameMantraValidator,
-                                    onSaved: (newValue) {
-                                      mantra.name = newValue!;
-                                    },
-                                    decoration: const InputDecoration(
-                                      label: Text("Mantra name"),
-                                    ),
-                                  ),
-                                  TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    validator:
-                                        Validators().counterMantraValidator,
-                                    onSaved: (newValue) {
-                                      mantra.goal =
-                                          int.tryParse(newValue!.trim())!;
-                                    },
-                                    decoration: const InputDecoration(
-                                      label: Text("Repetitions number "),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 40,
-                                  ),
-                                  const Text("Description"),
-                                  TextFormField(
-                                    textAlign: TextAlign.justify,
-                                    maxLines: 7,
-                                    onSaved: (newValue) {
-                                      mantra.description = newValue!;
-                                    },
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(25.0),
+            child: Column(
+                            children: [
+                              Form(
+                                key: _formMantra,
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      validator: Validators().nameMantraValidator,
+                                      onSaved: (newValue) {
+                                        mantra.name = newValue!;
+                                      },
+                                      decoration: const InputDecoration(
+                                        label: Text("Mantra name"),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      validator:
+                                          Validators().counterMantraValidator,
+                                      onSaved: (newValue) {
+                                        mantra.goal =
+                                            int.tryParse(newValue!.trim())!;
+                                      },
+                                      decoration: const InputDecoration(
+                                        label: Text("Repetitions number "),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 40,
+                                    ),
+                                    const Text("Description"),
+                                    TextFormField(
+                                      textAlign: TextAlign.justify,
+                                      maxLines: 7,
+                                      onSaved: (newValue) {
+                                        mantra.description = newValue!;
+                                      },
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(25.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-),
-            ElevatedButton(
-                onPressed: () {
-       
-                    if (_formMantra.currentState!.validate()) {
-                      _formMantra.currentState!.save();
-                      dialogBuilder(
-                        context,
-                        SimpleAlertDialog(
-                            title: "Do you want to save this mantra ? ",
-                            buttonFunction1: () {
-                              Navigator.of(context).pop();
-                            },
-                            buttonFunction2: () {
-                              context
-                                  .read<DatabaseMantraCubit>()
-                                  .onSaveMantra(mantra);
-                              Navigator.of(context).pop();
-                            }).build(context),
-                      );
-                    }
-                  
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(0),
-                  alignment: Alignment.center,
-                    shape: const CircleBorder(),
-                    fixedSize: const Size(70, 70),
-                    backgroundColor: Colors.green),
-                child: const Text("Save",style: TextStyle(color: Colors.white),))
-          ],
+                            ],
+                          ),
+          ),
+              ElevatedButton(
+                  onPressed: () {
+                 
+                      if (_formMantra.currentState!.validate()) {
+                        _formMantra.currentState!.save();
+                        dialogBuilder(
+                          context,
+                          SimpleAlertDialog(
+                              title: "Do you want to save this mantra ? ",
+                              buttonFunction1: () {
+                                Navigator.of(context).pop();
+                              },
+                              buttonFunction2: () {
+                                context
+                                    .read<DatabaseMantraCubit>()
+                                    .onSaveMantra(mantra);
+                                Navigator.of(context).pop();
+                              }).build(context),
+                        );
+                      }
+                    
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(0),
+                    alignment: Alignment.center,
+                      shape: const CircleBorder(),
+                      fixedSize: const Size(70, 70),
+                      backgroundColor: Colors.green),
+                  child: const Text("Save",style: TextStyle(color: Colors.white),))
+            ],
+          ),
         ),
       ),
     );

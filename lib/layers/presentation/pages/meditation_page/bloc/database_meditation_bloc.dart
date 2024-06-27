@@ -10,6 +10,7 @@ class DatabaseMeditationCubit extends Cubit<List<MeditationEntity>> {
   final DeleteMeditationUseCase deleteMeditationUsecase;
   final UpdateMeditationUsecase updateMeditationUsecase;
   final SaveMeditationUseCase saveMeditationUseCase;
+  MeditationEntity? selectedMeditation;
 
   DatabaseMeditationCubit({
     required this.getMeditationUsecase,
@@ -29,6 +30,13 @@ class DatabaseMeditationCubit extends Cubit<List<MeditationEntity>> {
     emit(list);
   }
 
+  onTapList(MeditationEntity meditation){
+   selectedMeditation = state.firstWhere((element)=> element.id == meditation.id);
+   
+  }
+
+
+
   onSaveMeditation(MeditationEntity meditation) async {
     await saveMeditationUseCase(meditation);
     onGetMeditationList();
@@ -36,12 +44,18 @@ class DatabaseMeditationCubit extends Cubit<List<MeditationEntity>> {
 
   onUpdadeMeditation(MeditationEntity meditation)async {
     await updateMeditationUsecase(meditation);
-    print(meditation.minutes);
     onGetMeditationList();
   }
 
   onDeleteMeditation(MeditationEntity meditation) async {
     await deleteMeditationUsecase(meditation);
+
+    if(selectedMeditation != null && meditation.id == selectedMeditation!.id){
+      onGetMeditationList();
+      state.isNotEmpty ? selectedMeditation = state.first: selectedMeditation = null;
+    }else{
     onGetMeditationList();
+    }
+   
   }
 }
